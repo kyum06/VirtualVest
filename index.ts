@@ -1,13 +1,11 @@
-import express from 'express';
-import dotenv from 'dotenv';
+import express, { Express } from 'express';
 
-dotenv.config();
-const server = express();
+const server: Express = express();
 
 server.use(express.static('public', {
     extensions: [ 'html', 'htm' ],
 }));
 
-server.listen(process.env.PORT || 8080, () => {
+server.listen('8080', (): void => {
     console.log('stock server actived');
 });
