@@ -1,17 +1,18 @@
 .company-grid {
     width: 80%;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     justify-items: center;
     align-items: center;
     gap: 50px;
 }
 
 .company {
-    width: 200px;
-    height: 400px;
+    width: 250px;
+    height: 450px;
     display: flex;
     flex-direction: column;
+    justify-content: space-evenly;
     padding: 20px;
     border-radius: 10px;
     background-color: #fff;
@@ -30,20 +31,44 @@
 }
 
 .company img {
+    padding-top: 30px;
     max-width: 100%;
     height: auto;
     margin-bottom: 10px;
+    padding: 1rem 1.5rem;
 }
 
 .company h3 {
     margin: 0;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
+}
+
+.company .amount {
+    font-size: 18px;
+    color: gray;
 }
 
 .company p.price {
     margin: 10px 0 0;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: bold;
-    color: #00c853;
+    padding-bottom: 30px;
+}  
+
+.btn-stock {
+    background-color: #3182f6;
+    color: #fff;
+    border-radius: 10px;
+    padding: 1.5rem 3rem;
+    text-decoration: none;
+    font-size: 2rem;
+    font-weight: 600;
+    width: 60px;
+}
+
+.btn-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }
