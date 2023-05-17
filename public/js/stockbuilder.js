@@ -22,11 +22,11 @@ class StockBuilder {
         this.uuid = `c-${id}`;
 
         this.Interval = setInterval(() => {
-            if (this.companyName === null) {
+            if (this.companyElem === null) {
                 return;
             }
             this.randomStockPrice();
-        }, randomRange(2000, 5000));
+        }, randomRange(2000, 4000));
 
         stockCollector.set(this.uuid, this);
     }
@@ -52,7 +52,7 @@ class StockBuilder {
         return this;
     }
 
-    setPrice(price) {
+    setPrice(price, random) {
         this.companyElem = document.querySelector(`.${this.uuid}`);
         this.stockPrice = price;
 
@@ -62,17 +62,13 @@ class StockBuilder {
                 this.companyElem.querySelector('.rate').innerText = '-';
                 this.companyElem.querySelector('.rate').setAttribute('style', 'color:gray');   
             }
-            else {
-                let change = this.totalMoney > this.amount * this.stockPrice;
-                if (change) {
-                    this.companyElem.querySelector('.rate').innerText = '▲' + parseInt(Math.abs((this.amount * this.stockPrice) / this.totalMoney - 1) * 100)
-                    this.companyElem.querySelector('.rate').setAttribute('style', 'color:red');
-                } else {
-                    this.companyElem.querySelector('.rate').innerText = '▼' + parseInt(Math.abs((this.amount * this.stockPrice) / this.totalMoney - 1) * 100);
-                    this.companyElem.querySelector('.rate').setAttribute('style', 'color:blue');
-                }
+            if (random > 0) {
+                this.companyElem.querySelector('.rate').innerText = '▲' + parseInt(Math.abs(random));
+                this.companyElem.querySelector('.rate').setAttribute('style', 'color:red');
+            } else {
+                this.companyElem.querySelector('.rate').innerText = '▼' + parseInt(Math.abs(random));
+                this.companyElem.querySelector('.rate').setAttribute('style', 'color:blue');
             }
-            
         }
 
         return this;    
@@ -84,14 +80,16 @@ class StockBuilder {
     }
 
     buyStock() {
-        if (money < this.price) {
+        if (money < this.stockPrice) {
+            alert('돈이 부족합니다. 아시겠어요???')
             return;
         }
         this.amount += 1;
         money -= this.stockPrice;
-        this.totalMoney += this.stockPrice
+        this.totalMoney += this.stockPrice;
 
         this.companyElem.querySelector('.amount').innerHTML = `보유: ${this.amount}`;
+        document.querySelector('.money').innerText = `보유 자산: ${dot(parseInt(money))}원`;
     }
 
     sellStock() {
@@ -103,11 +101,12 @@ class StockBuilder {
         this.totalMoney -= this.stockPrice;
 
         this.companyElem.querySelector('.amount').innerHTML = `보유: ${this.amount}`;
+        document.querySelector('.money').innerText = `보유 자산: ${dot(parseInt(money))}원`;
     }
 
     randomStockPrice() {
-        let changeRate = (randomRange(0, 40) + 80) / 100;
-        this.setPrice(this.stockPrice * changeRate);
+        let random = randomRange(0, 40) + 80; // 80 ~ 120
+        this.setPrice(this.stockPrice * random / 100, random - 100);
     }
 }
 

@@ -42,6 +42,10 @@ body {
     justify-content: center;
     align-items: center;
     overflow-x: hidden;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-use-select: none;
+    user-select: none;
 }
 
 header {
